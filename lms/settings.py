@@ -57,7 +57,7 @@ ROOT_URLCONF = 'lms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [Path.joinpath(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [Path.joinpath(BASE_DIR,'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path.joinpath(BASE_DIR,'media')
 

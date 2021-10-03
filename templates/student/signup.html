@@ -1,0 +1,40 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Signup - Student {% endblock %}
+
+{% block 'css' %}
+<style>
+    body{
+      background-image:url({% static 'img/bg.jpeg' %});
+      background-size:cover;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block 'body' %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-8">
+            <div class="card signup-card">
+                <div class="card-header">
+                    Signup - Student
+                </div>
+                <div class="card-body">
+                    {% include 'component/message.html' %}
+                    <form action="{% url 'signupstudent' %}" method="post">
+                        {{form.as_p}}
+                        {% csrf_token %}
+                        <button style="float:right;" type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

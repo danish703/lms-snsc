@@ -1,0 +1,27 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Student {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/teachersidenav.html' %}
+    <div class="col-10 right-side">
+        <div class="card form-card">
+            <div class="card-body">
+                <h3>Create Class </h3>
+                <form action="" enctype="multipart/form-data" method="post">
+                    {{form.as_p}}
+                    {% csrf_token %}
+                    <button style="float:right;" type="submit" class="btn btn-success">Save</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+

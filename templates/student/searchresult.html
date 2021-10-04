@@ -1,0 +1,38 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Student {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/studentsidenav.html' %}
+    <div class="col-9 right-side">
+        {% include 'component/message.html' %}
+        <h3>Search Result </h3>
+        <hr/>
+        {% include 'component/searchform.html' %}
+        <hr/>
+        {% if classroom %}
+         <div class="card" style="width: 25rem;">
+                <div class="class-image">
+                   {% if room.image %}
+                    <img src="{{MEDIA_URL}}{{classroom.image.url}}" class="card-img-top" alt="...">
+                   {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="...">
+                   {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{classroom.subject}}</h5>
+                    <span style="font-style:italic;">Code : {{classroom.code}}</span>
+                    <p class="card-text">{{classroom.description|truncatewords:10}}</p>
+                    <a href="#" class="btn btn-primary">Join</a>
+                </div>
+            </div>
+       {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+

@@ -5,7 +5,7 @@ class ClassRoom(models.Model):
     code = models.CharField(max_length=8,unique=True)
     subject = models.CharField(max_length=100)
     description = models.TextField(null=True,blank=True)
-    image = models.ImageField(upload_to='classroom/')
+    image = models.ImageField(upload_to='classroom/',blank=True,null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 

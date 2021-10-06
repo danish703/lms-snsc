@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from classroom.models import ClassRoom
-
+from classroom.models import Enroll
 # Create your views here.
 
 def signin(request):
@@ -61,7 +61,9 @@ def signupStudent(request):
 @login_required(login_url='signin')
 def studentDashboard(request):
     if request.user.isStudent:
-        return render(request,'student/dashboard.html')
+        e = Enroll.objects.filter(user=request.user).values_list('classroom_id',flat=True) #e=[1,2]
+        classrooms = ClassRoom.objects.filter(id__in=e)
+        return render(request,'student/dashboard.html',{'classrooms':classrooms})
     return redirect('teacherDashboard')
 
 @login_required(login_url='signin')

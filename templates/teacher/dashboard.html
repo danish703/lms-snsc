@@ -1,6 +1,6 @@
 {% extends  'master/home.html' %}
 {% load static %}
-{% block 'title' %} Dashboard - Student {% endblock %}
+{% block 'title' %} Dashboard - Teacher {% endblock %}
 
 
 {% block 'body' %}
@@ -13,7 +13,7 @@
         <hr>
         <div class="row">
        {% for room in  classrooms %}
-        <div class="col-4">
+          <div class="col-4">
             <div class="card">
                 <div class="class-image">
                    {% if room.image %}

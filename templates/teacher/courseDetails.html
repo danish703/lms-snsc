@@ -1,0 +1,36 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Student {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/teachersidenav.html' %}
+    <div class="col-10 right-side">
+        {% include 'component/message.html' %}
+        <h3>{{classroom.subject}} </h3>
+        <div class="row">
+            <div class="col-9">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem cumque doloremque, eius eos ipsam iure, molestiae, mollitia nam perferendis quae reiciendis vero voluptatum? Exercitationem illum itaque nam nobis voluptatum?
+            </div>
+            <div class="col-3">
+                Students
+                <hr>
+                <table class="table table-striped">
+                    {% for s in students %}
+                      <tr>
+                          <td>{{s.user.fullName}}</td>
+
+                          <td>{% if s.status is not True %}<a class="btn btn-sm btn-primary" href="{% url 'accept' s.id %}">Accept</a> {% endif %}</td>
+                      </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

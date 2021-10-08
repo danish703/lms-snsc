@@ -6,6 +6,8 @@ from .models import ClassRoom,Enroll
 import random
 import string
 from django.contrib import messages
+from assignment.forms import PostCreateForm
+from assignment.models import Post
 def generateRandomAlphaNumericCode(l=6):
     code = ''.join(random.choice(string.ascii_lowercase+string.digits) for i in range(l))
     return code
@@ -41,6 +43,14 @@ def classSearch(reqeust):
         context = {}
         try:
             classroom = ClassRoom.objects.get(code=code)
+            try:
+                e = Enroll.objects.get(classroom=classroom,user=reqeust.user)
+                if e.status:
+                    context.update({'joined': 'Already joined'})
+                else:
+                    context.update({'joined':'requested'})
+            except:
+                context.update({'joined':'not join'})
             context.update({'classroom':classroom})
         except:
             messages.add_message(reqeust,messages.ERROR,"No class found")
@@ -66,7 +76,18 @@ def joinClass(request,id):
 @login_required(login_url='sigin')
 def courseDetails(request,id):
     if request.user.isTeacher:
+        form = PostCreateForm(request.POST or None,request.FILES or None)
+        posts = Post.objects.filter(classroom_id=id)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.classroom_id = id
+            form.user_id = request.user.id
+            form.save()
+            messages.add_message(request,messages.SUCCESS,"Posted successfully")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         context = {}
+        context.update({'posts':posts})
+        context.update({'form':form})
         try:
             classroom = ClassRoom.objects.get(id=id)
             enrollStudent = Enroll.objects.filter(classroom=classroom)

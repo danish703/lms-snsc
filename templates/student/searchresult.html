@@ -26,9 +26,18 @@
                     <h5 class="card-title">{{classroom.subject}}</h5>
                     <span style="font-style:italic;">Code : {{classroom.code}}</span>
                     <p class="card-text">{{classroom.description|truncatewords:10}}</p>
+                   {% if joined == 'Already joined' %}
+                    <span class="badge bg-success">Already Joined</span>
+                   {% elif joined == 'requested' %}
+                     <span class="badge bg-primary">Requested</span>
+                   {% else %}
                     <a href="{% url 'joinclass' classroom.id  %}" class="btn btn-primary">Join</a>
+                   {% endif %}
                 </div>
             </div>
+           <span>
+
+           </span>
        {% endif %}
     </div>
 </div>

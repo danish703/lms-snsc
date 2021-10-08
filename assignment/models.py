@@ -26,11 +26,10 @@ class Submit(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField(null=True,blank=True)
-    image = models.ImageField(upload_to='post/')
+    description = models.TextField()
+    file = models.FileField(upload_to='files/',blank=True,null=True)
     classroom = models.ForeignKey(ClassRoom,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return self.description

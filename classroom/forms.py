@@ -8,3 +8,5 @@ class CreateClassRoom(forms.ModelForm):
     class Meta:
         model = ClassRoom
         fields = ['subject','description','image']
+
+

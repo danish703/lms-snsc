@@ -61,9 +61,11 @@ def signupStudent(request):
 @login_required(login_url='signin')
 def studentDashboard(request):
     if request.user.isStudent:
-        e = Enroll.objects.filter(user=request.user).values_list('classroom_id',flat=True) #e=[1,2]
+        context  = {}
+        e = Enroll.objects.filter(user=request.user,status=True).values_list('classroom_id',flat=True) #e=[1,2]
         classrooms = ClassRoom.objects.filter(id__in=e)
-        return render(request,'student/dashboard.html',{'classrooms':classrooms})
+        context.update({'classrooms':classrooms})
+        return render(request,'student/dashboard.html',context)
     return redirect('teacherDashboard')
 
 @login_required(login_url='signin')

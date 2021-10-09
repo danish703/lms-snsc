@@ -1,0 +1,52 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Student {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/teachersidenav.html' %}
+    <div class="col-10 right-side">
+        {% include 'component/message.html' %}
+        <h3>{{classroom.subject}} </h3>
+        <div class="row">
+            <div class="col-9">
+                <form action="#" method="post" enctype="multipart/form-data">
+                    {{form.as_p}}
+                    {% csrf_token %}
+                    <!--<input type="submit" class="btn btn-success" value="save" role="button">-->
+                    <button type="submit" class="btn btn-success" style="float:right;">Save</button>
+                </form>
+                <div class="row" style="margin-top:20px;">
+                <hr/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block 'js' %}
+<script>
+    tinymce.init({
+        selector: '#postdescription',
+        menubar:true,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+           toolbar: 'undo redo | formatselect | ' +
+          'bold italic backcolor | alignleft aligncenter ' +
+          'alignright alignjustify | bullist numlist outdent indent | ' +
+          'removeformat | help',
+           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+
+      });
+</script>
+{% endblock %}
+
+

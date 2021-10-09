@@ -42,3 +42,11 @@ left:18%;
   height:250px;
   overflow-y:hidden;
 }
+
+.comment{
+  margin-left:4%;
+  border:1px solid grey !important;
+}
+.comment span{
+ border-bottom: 1px solid #ccc;
+}

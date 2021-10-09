@@ -16,7 +16,7 @@ class ClassRoom(models.Model):
 
 class Enroll(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    classroom = models.ForeignKey(ClassRoom,on_delete=models.CASCADE)
+    classroom = models.ForeignKey(ClassRoom,related_name='classroom',on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
 
     class Meta:

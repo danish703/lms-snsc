@@ -22,12 +22,28 @@
                 <hr/>
 
                 {% for p in posts %}
+                    <span><a href="{% url 'blogEdit' p.id %}"><i class="fas fa-edit" style="float:right;margin-left:5px;"></i></a>
+                    <a href="#" onclick="deletePost('{% url 'deleteBlog' p.id %}')" class="deletePost"><i class="fas fa-trash" style="float:right;color:red;"></i></a> </span>
                     {% autoescape off%}
                     <p>{{p.description}}</p>
                     {% endautoescape %}
                     {% if p.file %}
                        <span><a href="{{MEDIA_URL}}{{p.file.url}}">{{p.file}}</a></span>
                      {% endif %}
+                      <div class="row comment">
+                          {% for c in comments %}
+                             {% if c.post_id == p.id %}
+                               <span>{{c.user}}</span>
+                                <p>{{c.comment}}</p>
+
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                     <form method="post" action="{% url 'postComment' p.id %}">
+                         {% csrf_token %}
+                         {{commentform.as_p}}
+                         <button type="submit" class="btn btn-success">Comment</button>
+                     </form>
                     <hr/>
                 {% endfor %}
                 </div>
@@ -70,6 +86,17 @@
 
       });
 </script>
+
+<script type="text/javascript">
+ function deletePost(url){
+  bootbox.confirm("Are you sure?", function(result){
+     if(result){
+       window.location = url;
+     }
+    })
+ }
+</script>
+
 {% endblock %}
 
 

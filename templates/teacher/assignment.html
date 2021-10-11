@@ -1,0 +1,88 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Teacher {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/teachersidenav.html' %}
+    <div class="col-10 right-side">
+        {% include 'component/message.html' %}
+        <h3>Assignment </h3>
+        <hr>
+        <div class="row">
+            <div class="col-10">
+                <!--create assignment-->
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#createAssignment" aria-expanded="false"
+                            aria-controls="collapseWidthExample">
+                        Create Assignment
+                    </button>
+                </p>
+                <div>
+                    <div class="collapse" id="createAssignment">
+                        <div class="card card-body">
+                            <form method="post">
+                                {{form.as_p}}
+                                {% csrf_token %}
+                                <button style="float:right;" type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end create assignment-->
+            <div class="row">
+                {% for a in assignment %}
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{a}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{a.deadline}} | Marks {{a.marks}}</h6>
+                            <p class="card-text">
+                                {% autoescape off %} {{a.description|truncatewords:20}} {% endautoescape %}
+                            </p>
+                            <a href="{% url 'assignmentEdit' a.id %}"><i class="fas fa-edit"></i> </a>
+                            <span class="delAssignment" delurl="{% url 'assignmentDel' a.id %}" style="color:red;"><i
+                                    class="fas fa-trash"></i></span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block 'js' %}
+<script type="text/javascript">
+    $(".delAssignment").click(function(){
+      var delurl = $(this).attr('delurl');
+      bootbox.confirm({
+            message: "Are your sure ?",
+            closeButton:false,
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+              if(result){
+               window.location = delurl;
+              }
+            }
+        });
+    });
+
+</script>
+{% endblock %}
+

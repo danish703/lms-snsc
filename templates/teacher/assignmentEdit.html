@@ -1,0 +1,26 @@
+{% extends  'master/home.html' %}
+{% load static %}
+{% block 'title' %} Dashboard - Teacher {% endblock %}
+
+
+{% block 'body' %}
+
+<div class="row">
+    {% include 'component/teachersidenav.html' %}
+    <div class="col-8 right-side">
+        {% include 'component/message.html' %}
+        <h3>{{assignment}}</h3>
+        <hr>
+        <div class="row">
+            <form  method="post">
+                {{form.as_p}}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+       </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
